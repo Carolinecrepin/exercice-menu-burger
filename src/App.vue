@@ -54,10 +54,6 @@ nav a {
   color: #ffffff;
 }
 
-nav a.router-link-exact-active {
-  color: #1a6242;
-}
-
 .logo {
   float: left;
 }
