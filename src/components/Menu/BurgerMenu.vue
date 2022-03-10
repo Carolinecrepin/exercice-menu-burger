@@ -57,11 +57,10 @@ button:focus {
   border-radius: 0;
   background-color: transparent;
   pointer-events: all;
-  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .burger-bar {
-  background-color: #130f40;
+  background-color: #313131;
   position: absolute;
   top: 50%;
   right: 6px;
@@ -69,9 +68,6 @@ button:focus {
   height: 2px;
   width: auto;
   margin-top: -1px;
-  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
-    opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1),
-    background-color 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .burger-bar--1 {
@@ -84,20 +80,8 @@ button:focus {
   transform: scaleX(0.8);
 }
 
-.burger-button:hover .burger-bar--2 {
-  transform: scaleX(1);
-}
-
-.no-touchevents .burger-bar--2:hover {
-  transform: scaleX(1);
-}
-
 .burger-bar--3 {
   transform: translateY(6px);
-}
-
-#burger.active .burger-button {
-  transform: rotate(-180deg);
 }
 
 #burger.active .burger-bar {
