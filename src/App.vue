@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <nav class="main-nav">
+    <!-- logo -->
       <img src="./assets/logo.png" alt="logo"  width="70" height="70">
+    <!--bouton menu burger -->
       <BurgerMenu></BurgerMenu>
+    <!--navbar avec  panneau sidebar -->
     </nav>
     <SidebarMenu>
       <h2>Menu</h2>

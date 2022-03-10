@@ -2,7 +2,6 @@
     <div class="sidebar">
         <!-- au click ferme le panneau sidebar si le panneau n'est pas ouvert-->
         <div class="sidebar-backdrop" @click="closeSidebarPanel" v-if="isPanelOpen"></div>
-        <!--<div class="sidebar-backdrop" @click="closeSidebarPanel" v-if="isPanelOpen"></div>-->
         <transition name="slide">
             <div v-if="isPanelOpen"
                  class="sidebar-panel">

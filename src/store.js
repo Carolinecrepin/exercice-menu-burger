@@ -1,6 +1,6 @@
 import Vue from "vue";
 
-//state nav
+//etat de la nav
 export const store = Vue.observable({
   isNavOpen: false
 });
