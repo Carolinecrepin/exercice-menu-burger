@@ -118,7 +118,7 @@ button:focus {
   left: 6px;
   height: 2px;
   width: auto;
-  margin-top: -1px;
+  margin-top: 0px;
 }
 
 .burger-bar--1 {
