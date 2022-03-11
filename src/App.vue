@@ -17,9 +17,9 @@ export default {
   data() {
     return {
       links:[
-        {label:'Home' , url:'/', icon:''},
-        {label: 'About', url:'/about'},
-        {label:'Contact', url:'/contact'}
+        {label:'Home' , url:'/', icon: 'fa-home'},
+        {label: 'About', url:'/about', icon: 'fa-users'},
+        {label:'Contact', url:'/contact', icon: 'fa-envelope'}
       ]
     }
   }
@@ -44,7 +44,8 @@ export default {
   flex-direction: column;
   justify-content: space-around;
   align-items:flex-start;
-  padding:3em;
+  padding-top:3em;
+  padding-left:0;
 
 }
 .sidebar-panel-nav > a {

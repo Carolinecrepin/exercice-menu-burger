@@ -25,11 +25,12 @@
                 <div>
                     <h2>Menu</h2>
                     <ul class="sidebar-panel-nav">
-                        <router-link 
+                        <router-link
                             v-for="(link, index) in links" :key="index"
                             :to="link.url"
                         >
-                            {{ link.icon }}
+                        <!--icones de menu qui changent avec le v-for icon-->
+                        <i :class="['fa', link.icon]"></i>
                             {{ link.label }}
                         </router-link> 
                     </ul>
@@ -175,18 +176,29 @@ button:focus {
     }
 
     .sidebar-panel {
+        display:flex;
+        flex-direction: column;
         overflow-y: auto;
         background-color: #059e57;
         position: fixed;
         left: 0;
         top: 0;
-        height: 100vh;
-        z-index: 999;
+        height: 100%;
         padding: 3rem 20px 2rem 20px;
-        width: 200px;
     } 
+
+    .sidebar-panel-nav > a {
+      display:flex;
+      flex-direction: row;
+    }
+
+    .sidebar-panel-nav > a > i {
+      padding-right: 1em;
+    }
     
     .router-link-active {
+        display:flex;
+        flex-direction:row;
         color:rgb(44, 90, 63)
     }
 
