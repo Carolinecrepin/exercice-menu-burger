@@ -73,7 +73,7 @@ nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 30px;
+  padding: 20px;
   background-color: #77c087;
 }
 
