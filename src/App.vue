@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <SidebarMenu/>
+    <SidebarMenu :links="links"/>
     <router-view/>
   </div>
 </template>
@@ -13,6 +13,15 @@ export default {
   name:"app",
   components: {
     SidebarMenu
+  },
+  data() {
+    return {
+      links:[
+        {label:'Home' , url:'/', icon:''},
+        {label: 'About', url:'/about'},
+        {label:'Contact', url:'/contact'}
+      ]
+    }
   }
 }
 </script>

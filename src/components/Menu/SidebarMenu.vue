@@ -24,11 +24,15 @@
                  class="sidebar-panel">
                 <div>
                     <h2>Menu</h2>
-                        <ul class="sidebar-panel-nav">
-                            <router-link to="/">Home</router-link> 
-                            <router-link to="/about">About</router-link> 
-                            <router-link to="/contact">Contact</router-link>
-                        </ul>
+                    <ul class="sidebar-panel-nav">
+                        <router-link 
+                            v-for="(link, index) in links" :key="index"
+                            :to="link.url"
+                        >
+                            {{ link.icon }}
+                            {{ link.label }}
+                        </router-link> 
+                    </ul>
                 </div>
             </div>
         </transition>
@@ -39,6 +43,13 @@
 <script>
 import { store, mutations } from '@/store.js'
 export default {
+        //declaration de la props dans l'enfant sous form de tableau d'objets
+        props: {
+            links:{
+                type:Array,
+                require: true
+            }
+        },
         methods: {
             toggle() {
                 mutations.toggleNav();
