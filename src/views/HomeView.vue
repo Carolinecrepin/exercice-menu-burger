@@ -14,6 +14,6 @@ export default {
 <style scoped>
 
 h1 {
-  color:rgb(20, 70, 23);
+  color:rgb(70, 20, 20);
 }
 </style>

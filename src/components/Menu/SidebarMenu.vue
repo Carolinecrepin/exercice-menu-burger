@@ -2,7 +2,7 @@
     <div>
         <nav class="main-nav">
             <!-- logo -->
-            <img src="@/assets/logo.png" alt="logo"  width="70" height="70">
+            <img src="@/assets/logo-tricot.png" alt="logo"  width="100" height="100">
             <div id="burger" :class="{ 'active' : isBurgerActive }" @click.prevent="toggle">
                 <slot>
                 <!--bouton menu burger a droite-->
@@ -74,7 +74,7 @@ nav {
   flex-direction: row;
   justify-content: space-between;
   padding: 20px;
-  background-color: #77c087;
+  background-color: #b3a09b;
 }
 
 nav a {
@@ -84,6 +84,7 @@ nav a {
 
 .logo {
   float: left;
+  size:150%
 }
 
 .hidden {
@@ -111,14 +112,14 @@ button:focus {
 }
 
 .burger-bar {
-  background-color: #313131;
+  background-color: #ffffff;
   position: absolute;
   top: 50%;
   right: 6px;
   left: 6px;
   height: 2px;
   width: auto;
-  margin-top: 0px;
+  margin-top:37px;
 }
 
 .burger-bar--1 {
@@ -166,7 +167,7 @@ button:focus {
     }
 
     .sidebar-backdrop {
-        background-color: rgba(19, 15, 64, .4);
+        background-color: rgba(93, 83, 83, 0.4);
         width: 100vw;
         height: 100vh;
         position: fixed;
@@ -179,7 +180,7 @@ button:focus {
         display:flex;
         flex-direction: column;
         overflow-y: auto;
-        background-color: #059e57;
+        background-color: #b38e8e;
         position: fixed;
         left: 0;
         top: 0;
@@ -199,7 +200,7 @@ button:focus {
     .router-link-active {
         display:flex;
         flex-direction:row;
-        color:rgb(44, 90, 63)
+        color:rgb(90, 44, 44)
     }
 
 h2 {
