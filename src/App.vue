@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <SidebarMenu/>
+    <SidebarMenu :links="links"/>
     <router-view/>
   </div>
 </template>
@@ -13,6 +13,15 @@ export default {
   name:"app",
   components: {
     SidebarMenu
+  },
+  data() {
+    return {
+      links:[
+        {label:'Home' , url:'/', icon: 'fa-home'},
+        {label: 'About', url:'/about', icon: 'fa-users'},
+        {label:'Contact', url:'/contact', icon: 'fa-envelope'}
+      ]
+    }
   }
 }
 </script>
@@ -35,7 +44,8 @@ export default {
   flex-direction: column;
   justify-content: space-around;
   align-items:flex-start;
-  padding:3em;
+  padding-top:3em;
+  padding-left:0;
 
 }
 .sidebar-panel-nav > a {

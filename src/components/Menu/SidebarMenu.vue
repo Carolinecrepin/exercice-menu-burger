@@ -24,11 +24,16 @@
                  class="sidebar-panel">
                 <div>
                     <h2>Menu</h2>
-                        <ul class="sidebar-panel-nav">
-                            <router-link to="/">Home</router-link> 
-                            <router-link to="/about">About</router-link> 
-                            <router-link to="/contact">Contact</router-link>
-                        </ul>
+                    <ul class="sidebar-panel-nav">
+                        <router-link
+                            v-for="(link, index) in links" :key="index"
+                            :to="link.url"
+                        >
+                        <!--icones de menu qui changent avec le v-for icon-->
+                        <i :class="['fa', link.icon]"></i>
+                            {{ link.label }}
+                        </router-link> 
+                    </ul>
                 </div>
             </div>
         </transition>
@@ -39,6 +44,13 @@
 <script>
 import { store, mutations } from '@/store.js'
 export default {
+        //declaration de la props dans l'enfant sous form de tableau d'objets
+        props: {
+            links:{
+                type:Array,
+                require: true
+            }
+        },
         methods: {
             toggle() {
                 mutations.toggleNav();
@@ -106,7 +118,7 @@ button:focus {
   left: 6px;
   height: 2px;
   width: auto;
-  margin-top: -1px;
+  margin-top: 0px;
 }
 
 .burger-bar--1 {
@@ -164,18 +176,29 @@ button:focus {
     }
 
     .sidebar-panel {
+        display:flex;
+        flex-direction: column;
         overflow-y: auto;
         background-color: #059e57;
         position: fixed;
         left: 0;
         top: 0;
-        height: 100vh;
-        z-index: 999;
+        height: 100%;
         padding: 3rem 20px 2rem 20px;
-        width: 200px;
     } 
+
+    .sidebar-panel-nav > a {
+      display:flex;
+      flex-direction: row;
+    }
+
+    .sidebar-panel-nav > a > i {
+      padding-right: 1em;
+    }
     
     .router-link-active {
+        display:flex;
+        flex-direction:row;
         color:rgb(44, 90, 63)
     }
 
