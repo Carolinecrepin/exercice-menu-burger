@@ -1,18 +1,20 @@
 <template>
   <div id="app">
+    <MyFooter :links="links"/>
     <SidebarMenu :links="links"/>
     <router-view/>
   </div>
 </template>
 
 <script>
-
+import MyFooter from "./components/MyFooter.vue";
 import SidebarMenu from "./components/Menu/SidebarMenu.vue";
 
 export default {
   name:"app",
   components: {
-    SidebarMenu
+    SidebarMenu,
+    MyFooter
   },
   data() {
     return {
