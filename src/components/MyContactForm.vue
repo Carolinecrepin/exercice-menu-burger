@@ -3,13 +3,13 @@
     <div class="overlay" v-on:click="toggleModale"></div>
 
     <div class="modale card">
-      <div v-on:click="toggleModale" class="btn-modale btn btn-danger">X</div>
+      <div v-on:click="toggleModale" class="btn-modale">X</div>
         <div>
           <form action="">
             <div slot="header">
                 <p class="contactUs">Contactez-nous</p>
             </div>
-            <div slot="content">
+            <div slot="content" class="content">
                 <label for="lastname">Votre nom :</label>
                 <input type="text" name="lastname" id="lastname">
 
@@ -52,6 +52,7 @@ export default {
   left: 0;
   right: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -115,5 +116,10 @@ input, select {
     margin-top: 0.5em;
     align-self:center;
     border-radius: 10px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
 }
 </style>
