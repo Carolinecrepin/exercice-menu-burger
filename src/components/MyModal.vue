@@ -11,7 +11,7 @@ export default {
     name:"MyModal",
     data() {
         return {
-            revele: false
+            revele: false,
         };
     },
     components: {

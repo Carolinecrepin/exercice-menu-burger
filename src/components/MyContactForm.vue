@@ -5,29 +5,36 @@
     <div class="modale card">
       <div v-on:click="toggleModale" class="btn-modale">X</div>
         <div>
-          <form action="">
+          <form @submit="checkForm" id="myContactForm" action="" method="post" novalidate="true">
+            <!--verification des erreurs dans le formulaire-->
+            <p v-if="errors.length" class="errors">
+              <b>Merci de corriger les erreurs :</b>
+              <ul>
+                <li v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
             <div slot="header">
                 <p class="contactUs">Contactez-nous</p>
             </div>
             <div slot="content" class="content">
                 <label for="lastname">Votre nom :</label>
-                <input type="text" name="lastname" id="lastname">
+                <input type="text" name="lastname" id="lastname" placeholder="Nom" v-model="lastname">
 
-                <label for="Email">Votre prénom :</label>
-                <input type="text" name="firstname" id="firstname">
+                <label for="firstname">Votre prénom :</label>
+                <input type="text" name="firstname" id="firstname" placeholder="Prénom" v-model="firstname">
 
-                <label for="Email">Votre Email :</label>
-                <input type="text" name="email" id="email">
+                <label for="email">Votre Email :</label>
+                <input type="text" name="email" id="email" placeholder="Email" v-model="email">
 
                 <label for="select"> Merci de choisir une option :</label>
-                <select name="select" id="select">
+                <select name="select" id="select" v-model="select">
                     <option value="doc">Je souhaite recevoir de la documentation</option>
                     <option value="job">Je souhaite candidater à un poste</option>
                     <option value="other">Autre</option>
                 </select>
             </div>
             <div slot="submit">
-                <button type="submit" value="Submit" class="submit">Envoyer</button>
+                <button @click="submitted" type="submit" value="submit" class="submit">Envoyer</button>
             </div>
         </form>
       </div>
@@ -39,7 +46,52 @@
 <script>
 export default {
   name: "MyContactForm",
-  props: ["revele", "toggleModale"]
+  data() {
+    return {
+      errors:[],
+      lastname: null,
+      firstname: null,
+      email: null,
+      select:null,
+    };
+  },
+  methods: {
+    checkForm: function (e) {
+      this.errors = [];
+
+      if (!this.lastname) {
+        this.errors.push("Votre Nom est obligatoire");
+      }
+      if (!this.firstname) {
+        this.errors.push("Votre prénom est obligatoire");
+      }
+      if (!this.email) {
+        this.errors.push("Votre Email est obligatoire");
+      } else if (!this.validEmail(this.email)) {
+        this.errors.push("Votre Email n'est pas valide");
+      }
+      if (!this.select) {
+        this.errors.push("Le sujet est obligatoire");
+      }
+
+      if (!this.errors.length) {
+        return true;
+      }
+
+      e.preventDefault();
+    },
+    validEmail: function (email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+      submitted(){
+        this.$emit('submitted');
+      }
+  },
+  props: [
+    "revele",
+    "toggleModale"
+  ],
 };
 </script>
 
@@ -78,6 +130,7 @@ export default {
   position: absolute;
   top: 10px;
   right: 10px;
+  font-weight: bold;
 }
 
 form {
@@ -121,5 +174,10 @@ input, select {
 .content {
   display: flex;
   flex-direction: column;
+}
+
+.errors {
+  color:red;
+  text-align: left;
 }
 </style>
