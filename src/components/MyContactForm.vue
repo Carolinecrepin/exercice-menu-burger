@@ -5,7 +5,7 @@
     <div class="modale card">
       <div v-on:click="toggleModale" class="btn-modale">X</div>
         <div>
-          <form @submit="checkForm" id="myContactForm" action="" method="post" novalidate="true">
+          <form @submit="checkForm" id="myContactForm" action="" method="" novalidate="true">
             <!--verification des erreurs dans le formulaire-->
             <p v-if="errors.length" class="errors">
               <b>Merci de corriger les erreurs :</b>
@@ -34,7 +34,7 @@
                 </select>
             </div>
             <div slot="submit">
-                <button @click="submitted" type="submit" value="submit" class="submit">Envoyer</button>
+                <button @click="submitted" value="submit" class="submit">Envoyer</button>
             </div>
         </form>
       </div>
@@ -44,6 +44,7 @@
 
 
 <script>
+import {mapActions, mapState} from 'vuex';
 export default {
   name: "MyContactForm",
   data() {
@@ -55,10 +56,21 @@ export default {
       select:null,
     };
   },
+
+  mounted(){
+    this.lastname = this.form.lastname
+    this.firstname = this.form.firstname
+    this.email = this.form.email
+    this.select = this.form.select
+  },
+
+  computed:{
+    ...mapState(['form'])
+  },
   methods: {
+    ...mapActions(['setForm']),
     checkForm: function (e) {
       this.errors = [];
-
       if (!this.lastname) {
         this.errors.push("Votre Nom est obligatoire");
       }
@@ -73,11 +85,9 @@ export default {
       if (!this.select) {
         this.errors.push("Le sujet est obligatoire");
       }
-
       if (!this.errors.length) {
         return true;
       }
-
       e.preventDefault();
     },
     validEmail: function (email) {
@@ -85,7 +95,9 @@ export default {
       return re.test(email);
     },
       submitted(){
-        this.$emit('submitted');
+        const form = {firstname: this.firstname, lastname: this.lastname, email: this.email, select: this.select}
+        this.setForm(form)
+        this.$emit('submited', false);
       }
   },
   props: [
@@ -108,7 +120,6 @@ export default {
   justify-content: center;
   align-items: center;
 }
-
 .overlay {
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -117,7 +128,6 @@ export default {
   left: 0;
   right: 0;
 }
-
 .modale {
   background: #f1f1f1;
   color: #333;
@@ -125,14 +135,12 @@ export default {
   position: fixed;
   top: 30%;
 }
-
 .btn-modale {
   position: absolute;
   top: 10px;
   right: 10px;
   font-weight: bold;
 }
-
 form {
     display: flex;
     flex-direction: column;
@@ -140,7 +148,6 @@ form {
     padding:2.5em;
     border-radius: 3px;
 }
-
 .contactUs {
     font-size: 1.5em;
     font-weight: bolder;
@@ -150,12 +157,10 @@ label {
     padding: 0.5em;
     text-align: start;
 }
-
 input, select {
     size: 90%;
     margin-bottom:1em;
 }
-
 .buttonModal {
     display: flex;
     flex-direction: row;
@@ -170,12 +175,10 @@ input, select {
     align-self:center;
     border-radius: 10px;
 }
-
 .content {
   display: flex;
   flex-direction: column;
 }
-
 .errors {
   color:red;
   text-align: left;
