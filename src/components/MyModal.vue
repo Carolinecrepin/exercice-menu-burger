@@ -1,6 +1,6 @@
 <template>
     <div>
-        <MyContactForm :revele="revele" :toggleModale="toggleModale"></MyContactForm>
+        <MyContactForm :revele="revele" :toggleModale="toggleModale" @submited="submited"></MyContactForm>
         <button v-on:click="toggleModale" class="btn-contact">Contactez-nous</button>
     </div>
 </template>
@@ -20,6 +20,9 @@ export default {
     methods: {
         toggleModale: function() {
             this.revele = !this.revele;
+        },
+        submited(value){
+            this.revele = value
         }
     }
 }
