@@ -4,6 +4,11 @@ import Vuex from 'vuex';
 import router from './router'
 import store from './store/index'
 import axios from 'axios'
+import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap/dist/css/bootstrap.css';
+
+Vue.use(BootstrapVue);
 
 Vue.prototype.$axios = axios
 Vue.use(Vuex)
