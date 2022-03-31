@@ -16,43 +16,65 @@
             <b-card-text>
               {{ post.body}}
             </b-card-text>
+            <b-button href="#" variant="secondary">voir plus</b-button>
           </b-card>
         </div>
-        <b-pagination
-        v-model="page"
-        :total-rows="count"
-        :per-page="pageSize"
-        ></b-pagination>
+        <PaginationCards
+          :totalPage="10"
+          :perPage="10"
+          :currentPage="currentPage"
+          @pagechanged="onPageChange"
+        />
       </div>
   </div>
 </template>
 
 <script>
+import PaginationCards from '@/components/PaginationCards.vue'
 export default {
   name: 'HomeView',
-  components: {},
+  components: {
+    PaginationCards
+  },
   data() {
     return {
-      posts: []
-    }  
+      posts: [],
+      currentPage: 1,
+    } 
+  },
+  methods: {
+    onPageChange(page) {
+      console.log(page)
+      this.currentPage = page;
+    }
   },
   mounted() {
     this.$axios.get(
-     'https://jsonplaceholder.typicode.com/posts?_page=1&_limit=10')
+     'https://jsonplaceholder.typicode.com/posts')
       .then(response => this.posts = response.data)
   }  
 }
 </script>
 
 <style scoped>
+.home {
+
+}
 
 h1 {
-  color:rgb(70, 20, 20);
+  color:rgb(39, 38, 38);
 }
 
 .cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+}
+.card {
+  position: inherit!important;
+}
+
+.pagination {
+  justify-content: center;
 }
 </style>

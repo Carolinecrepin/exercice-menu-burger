@@ -50,7 +50,7 @@ export default {
 }
 
 .btn-contact {
-    width: 120px;
+    width: 140px;
     height: 40px;
     border-radius: 2px;
     background-color: #ffbebe;
