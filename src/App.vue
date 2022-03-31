@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <MyFooter :links="links"/>
     <SidebarMenu :links="links"/>
     <router-view/>
+    <MyFooter :links="links"/>
+    
   </div>
 </template>
 

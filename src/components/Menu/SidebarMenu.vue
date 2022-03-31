@@ -75,6 +75,7 @@ nav {
   justify-content: space-between;
   padding: 20px;
   background-color: #b3a09b;
+  z-index: 100;
 }
 
 nav a {

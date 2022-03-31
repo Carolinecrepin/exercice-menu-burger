@@ -10,7 +10,7 @@
             {{ link.label }}
             </router-link> 
         </ul>
-        <img src="@/assets/logo-tricot.png" alt="logo"  width="50" height="50">
+        <img src="@/assets/logo-tricot.png" alt="logo"  width="100" height="100">
             <MyModal/>
         </div>
 
@@ -36,10 +36,9 @@ export default {
     display:flex;
     flex-direction: row;
     justify-content: space-around;
-    position:absolute;
-    bottom:0;
+    align-items: center;
     width:100%;
-    height:50px;
+    height:100%;
     padding: 2em;
     background-color: #b3a09b;
 }
