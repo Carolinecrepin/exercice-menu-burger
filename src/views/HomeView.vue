@@ -19,22 +19,18 @@
             <b-button href="#" variant="secondary">voir plus</b-button>
           </b-card>
         </div>
-        <PaginationCards
-          :totalPage="10"
-          :perPage="10"
-          :currentPage="currentPage"
-          @pagechanged="onPageChange"
-        />
+        <div class="btn-wrapper">
+          <b-button class="btn" variant="secondary"  @click="changePage('decrement')">Precedente</b-button>
+          <b-button class="btn" variant="secondary"  @click="changePage('increment')">Suivante</b-button>
+        </div>
       </div>
   </div>
 </template>
 
 <script>
-import PaginationCards from '@/components/PaginationCards.vue'
 export default {
   name: 'HomeView',
   components: {
-    PaginationCards
   },
   data() {
     return {
@@ -43,24 +39,33 @@ export default {
     } 
   },
   methods: {
-    onPageChange(page) {
-      console.log(page)
-      this.currentPage = page;
-    }
+    changePage(type) {
+      if ('increment' === type) {
+        this.currentPage++;
+      } else {
+        this.currentPage--;
+      }
+
+      this.getPosts(this.currentPage);
+    },
+    async getPosts(page) {
+      let response = await this.$axios.get(
+        "https://jsonplaceholder.typicode.com/posts?_page=" +
+          page +
+          "&_limit=10"
+      );
+      console.log(response);
+      this.posts = response.data;
+    },
   },
-  mounted() {
-    this.$axios.get(
-     'https://jsonplaceholder.typicode.com/posts')
-      .then(response => this.posts = response.data)
-  }  
+ 
+mounted() {
+    this.getPosts();
+  },  
 }
 </script>
 
 <style scoped>
-.home {
-
-}
-
 h1 {
   color:rgb(39, 38, 38);
 }
@@ -73,8 +78,10 @@ h1 {
 .card {
   position: inherit!important;
 }
-
-.pagination {
-  justify-content: center;
+.btn-secondary {
+  margin:0.5em;
+}
+.btn-wrapper {
+  padding: 1em;
 }
 </style>
