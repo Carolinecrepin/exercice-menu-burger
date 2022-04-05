@@ -3,7 +3,7 @@
       <h1>Page d'accueil</h1>
       <div id="app">
         <div class="cards">
-          <b-card v-for="post in posts" :key="post"
+          <b-card v-for="(post, index) in posts" :key="index"
               img-src="https://picsum.photos/600/300/?image=25"
               img-alt="Image"
               img-top
@@ -21,7 +21,13 @@
         </div>
         <div class="btn-wrapper">
           <!-- bouton qui change la page au clic pour decrémenté -->
-          <b-button class="btn" variant="secondary"  @click="changePage('prev')">Precedente</b-button>
+          <b-button class="btn" variant="secondary"  @click="changePage('prev')">Précédente</b-button>
+          <!-- bouton de numéro de page -->
+          <!-- le v-for prend en parametre le pageNumber et l'index dans la pagination avec la clé index et la class pagination -->
+          <div v-for="(pageNumber, index) in pagination" :key="index" class="pagination">
+          <!-- quand la class est active donc quand le bouton est cliqué donc la currentpage === a la pageNumber alors le css change et on a la class : activePagination qui change de couleur -->  
+            <b-button :class="{activePagination : currentPage === pageNumber}" class="btn" variant="secondary" @click="goToSelectedPage(pageNumber)">{{ pageNumber }}</b-button>
+          </div>
           <!-- bouton qui change la page au clic pour incrémenté -->
           <b-button class="btn" variant="secondary"  @click="changePage('next')">Suivante</b-button>
         </div>
@@ -37,68 +43,59 @@ export default {
   data() {
     return {
       posts: [],        //tableau d'objets des posts de l'api
-      url:"http://jsonplaceholder.typicode.com/posts?_page=",
+      url:"http://jsonplaceholder.typicode.com/posts",
       currentPage: 1,   //page courante
       next: false,      //page suivante initialisée a false
-      prev: false       //page précédente initialisée a false
+      prev: false,       //page précédente initialisée a false
+      pagination: [],     //tableau d'object avec toutes les pages
+      pageNumber : 1      //numéro de page
     } 
   },
+  async mounted() {
+      //il va changer le nombre total de posts
+        await this.getTotalPosts();
+      //il va chercher les posts par page
+        await this.getPostsbyPage();
+  },
   methods: {
-    //si le bouton est de type increment alors la current page s'incrémente sinon elle décrémente
-    changePage(type) {
-        switch(type){
+    //methode asynchrone si le bouton est de value increment alors la current page s'incrémente sinon elle décrémente
+   async changePage(value) {
+        switch(value){
             case"next":
               this.currentPage++;
             break;
             case"prev":
               this.currentPage--;
             break;
-            default:
-              this.currentPage = type;
-            break;
         }
-        this.getPosts(this.currentPage);
+        await this.getPostsbyPage();
       },
-      //fonction qui permet d'aller chercher les posts de l'api via l'url et la currentPage
-      async getPosts() {
-        let response = await this.$axios.get(this.url + this.currentPage);
+      //methode asynchrone si le bouton goToSelectedPage est cliqué il prend en paramètre la valeur page qui est elle meme égale a la current page se qui permet d'avoir le next et le prev mis a jour 
+      async goToSelectedPage(page) {
+        this.currentPage = page   //mettre current page = page car on ne peut pas reprendre sur la getPostByPage
+         await this.getPostsbyPage();
+      },
+      //fonction qui permet d'aller chercher les posts de l'api par page
+      async getPostsbyPage() {
+        let response = await this.$axios.get(`${this.url}?_page=${this.currentPage}`);
         //les posts = la requete http de l'api et les datas
         this.posts = response.data;
-        //le headerLink est la response de la requête du header dans la fonction getResponseHeader (qui recupère le lien)
-        let headerLink = response.request.getResponseHeader('link')
-        
-        //une fois le lien interprété on déclare une variable parsedLink de parseLink qui prend en paramètre le link du header
-        let parsedLink = this.parseLink(headerLink)
-
-        //l'url est un nouvel objet instancié de la last page parsé concaténé au search param 
-        let urlLastPage = new URL(parsedLink.last);
-        let nbLastPage = urlLastPage.searchParams;
-        let nbPage = nbLastPage.get('_page');
-        let parsedInt = parseInt(nbPage);
-
-        this.next = undefined !== parsedInt.next;
-        this.prev = undefined !== parsedInt.prev;
-
       },
-      //fonction pour interprêter le link du header link 
-      parseLink(headerLink) {
-        const output = {};
-        const regex = /<([^>]+)>; rel="([^"]+)"/g; 
+      //fonction permettant de recuperer tout les posts
+      async getTotalPosts(){
+        let response = await this.$axios.get(this.url);
+      //la constante totalPosts est egales a la reponse de l'url+ data +longueur
+        const totalPosts = response.data.length;
+        this.generatePagination(totalPosts);
         
-          let m;
-          // eslint-disable-next-line
-            while (m = regex.exec(headerLink)) {
-          // eslint-disable-next-line
-              const [_, v, k] = m;
-              output[k] = v;      //k : key v: value
-            }
-
-            return output;
       },
-      mounted() {
-      //il va chercher les posts
-        this.getPosts();
-      }  
+      //fonction pour generer la pagination qui prend en paramètres le nombre total de post se qui donne 10 page de 10 posts
+      generatePagination(totalPosts){
+          const itemPerPage = 10
+          const totalPage = totalPosts / itemPerPage
+      //la pagination est un tableau de la longueur du totalPage avec l'index qui commence a 1 et pas 0
+          this.pagination = Array.from({length: totalPage}, (_, i) => i + 1)
+      }
   }
 };
 
@@ -122,5 +119,11 @@ h1 {
 }
 .btn-wrapper {
   padding: 1em;
+}
+.pagination {
+  display:inline-block;
+}
+.activePagination {
+  background: #b3a09b;
 }
 </style>
