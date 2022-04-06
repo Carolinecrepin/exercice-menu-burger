@@ -10,6 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import MyFooter from './components/MyFooter';
 import SidebarMenu from './components/Menu/SidebarMenu';
 
+
 Vue.component('MyFooter', MyFooter);
 Vue.component('SidebarMenu', SidebarMenu);
 Vue.use(BootstrapVue);

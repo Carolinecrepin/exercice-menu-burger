@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-      <h1>Page d'accueil</h1>
+      <h1>Page d'accueil avec les posts</h1>
       <div id="app">
         <div class="cards">
+          <!-- carte de post -->
           <b-card v-for="(post, index) in posts" :key="index"
-              img-src="https://picsum.photos/600/300/?image=25"
               img-alt="Image"
               img-top
               tag="article"
@@ -16,7 +16,8 @@
             <b-card-text>
               {{ post.body}}
             </b-card-text>
-            <b-button href="#" variant="secondary">voir plus</b-button>
+            <!--bouton voir plus avec la methode push qui dirige vers l'id du post en question-->
+            <b-button variant="secondary" @click="pushToPost(post)">voir plus</b-button>
           </b-card>
         </div>
         <div class="btn-wrapper">
@@ -39,6 +40,7 @@
 export default {
   name: 'HomeView',
   components: {
+
   },
   data() {
     return {
@@ -48,7 +50,7 @@ export default {
       next: false,      //page suivante initialisée a false
       prev: false,       //page précédente initialisée a false
       pagination: [],     //tableau d'object avec toutes les pages
-      pageNumber : 1      //numéro de page
+      pageNumber : 1,      //numéro de page
     } 
   },
   async mounted() {
@@ -75,6 +77,10 @@ export default {
         this.currentPage = page   //mettre current page = page car on ne peut pas reprendre sur la getPostByPage
          await this.getPostsbyPage();
       },
+      async goToSelectedPost(post) {
+        this.posts = post   
+         await this.getPostsbyPage();
+      },
       //fonction qui permet d'aller chercher les posts de l'api par page
       async getPostsbyPage() {
         let response = await this.$axios.get(`${this.url}?_page=${this.currentPage}`);
@@ -95,7 +101,12 @@ export default {
           const totalPage = totalPosts / itemPerPage
       //la pagination est un tableau de la longueur du totalPage avec l'index qui commence a 1 et pas 0
           this.pagination = Array.from({length: totalPage}, (_, i) => i + 1)
-      }
+      },
+      
+      //fonction qui permet quand on clique sur le bouton router.push d'aller sur la page de detail du post
+      pushToPost(post) {
+      this.$router.push({ path: "/post", query: { id: post.id } });
+    },
   }
 };
 
@@ -103,6 +114,7 @@ export default {
 
 <style scoped>
 h1 {
+  padding: 1em;;
   color:rgb(39, 38, 38);
 }
 
