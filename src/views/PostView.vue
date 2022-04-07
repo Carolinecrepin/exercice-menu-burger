@@ -1,6 +1,7 @@
 <template>
     <div class="page">
         <h1>Detail post</h1>
+        <!--Page de détail d'un post-->
         <div class="detail">
             <div class="titlePost">
                 <h2>{{ post.title}}</h2>
@@ -20,6 +21,13 @@
                 </div>
             </div>
         </div>
+        <!--ajout de commentaire via le bouton-->
+        <div class="ajoutComment">
+            <router-link to="/commentForm">
+                <b-button id="AddComment" class="btn">Ajouter un commentaire</b-button>
+            </router-link>
+        </div>
+        <!--bouton de pagination des commentaires -->
         <div class="btn-wrapper">
             <b-button class="btn" variant="secondary"  @click="changePage('prev')">Précédente</b-button>
             <div v-for="(pageNumber, index) in pagination" :key="index" class="pagination">
@@ -27,6 +35,7 @@
             </div>
             <b-button class="btn" variant="secondary" @click="changePage('next')">suivante</b-button>
         </div>
+        <!--bouton de retour à la page précédente-->
         <div>
             <b-button class="btn" variant="secondary" @click="$router.go(-1)">Retour</b-button>
         </div>
@@ -98,7 +107,8 @@ export default {
         //la pagination est un tableau de la longueur du totalPage avec l'index qui commence a 1 et pas 0
           this.pagination = Array.from({length: totalPage}, (_, i) => i + 1)
           console.log(this.pagination)
-      },
+        },
+       
     }
 }
 </script>
@@ -140,7 +150,10 @@ h1 {
     align-self: center;
 }
 .btn {
-    margin: 2em;
+    margin-top: 1em;
+    margin-bottom: 2em;
+    margin-left:0.5em;
+    margin-right:0.5em;
 }
 .comments{
     display:flex;
@@ -162,5 +175,9 @@ h1 {
 }
 .activePagination {
   background: #b3a09b;
+}
+.btn-ajout {
+    background-color:#edeceb ;
+    color:rgb(58, 57, 57)
 }
 </style>

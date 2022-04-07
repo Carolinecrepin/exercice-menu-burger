@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import ContactView from '../views/ContactView.vue'
 import PostView from '../views/PostView.vue'
+import CommentFormView from '../views/PostFormView.vue'
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,11 @@ const routes = [
     path: '/post',
     name: 'post',
     component: PostView
+  },
+  {
+    path: '/commentForm',
+    name: 'commentForm',
+    component: CommentFormView
   },
   {
     path: '/about',
