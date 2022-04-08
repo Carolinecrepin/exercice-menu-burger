@@ -23,6 +23,10 @@
             <!-- bouton de retour a la page précédente-->
                 <b-button class="submit" @click="$router.go(-1)">Retour</b-button>
             </div>
+            <!-- si le form est bien envoyé on a un message de success -->
+            <div v-if="successNotification">
+                <p>votre post a été envoyé avec succès!</p>
+            </div>
         </form> 
     </div>
 </template>
@@ -36,7 +40,8 @@ export default {
             errors: [],
             name: null,
             post: null,
-            userId:1
+            userId:1,
+            successNotification:false //notification de success initialisé a false 
         }
     },
     methods: {
@@ -50,9 +55,14 @@ export default {
         //dans la methode createPost on verifie si le form est valide (l.52) et on post le titre, le body et le userId qui correspond aux datas d'un post
         async createPost(){
             if(this.isFormValid() === true){
-            let response = await this.$axios.post(`${this.url}`,{title: this.name, body:this.post, userId:this.userId});
-            this.post = response.data;
-            } 
+                //si le form est valide il affiche le nouveau post et affiche un message de success
+                try { 
+                    await this.$axios.post(`${this.url}`,{title: this.name, body:this.post, userId:this.userId})
+                    this.successNotification = true
+                //sinon il liste les erreurs
+                } catch(error) {
+                    console.log(error)           }
+            }
         },
         //methode pour securiser le formulaire en detectant les erreurs de saisies de champs 
         setFormError(){

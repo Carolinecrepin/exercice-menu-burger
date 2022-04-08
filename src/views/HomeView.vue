@@ -20,6 +20,12 @@
             <b-button variant="secondary" @click="pushToPost(post)">voir plus</b-button>
           </b-card>
         </div>
+        <!--ajout d'un post via le bouton-->
+        <div class="ajoutPost">
+            <router-link to="/PostForm">
+                <b-button id="AddPost" class="btn">Ajouter un post</b-button>
+            </router-link>
+        </div>
         <div class="btn-wrapper">
           <!-- bouton qui change la page au clic pour decrémenté -->
           <b-button class="btn" variant="secondary"  @click="changePage('prev')">Précédente</b-button>

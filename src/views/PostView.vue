@@ -21,12 +21,6 @@
                 </div>
             </div>
         </div>
-        <!--ajout de commentaire via le bouton-->
-        <div class="ajoutComment">
-            <router-link to="/commentForm">
-                <b-button id="AddComment" class="btn">Ajouter un commentaire</b-button>
-            </router-link>
-        </div>
         <!--bouton de pagination des commentaires -->
         <div class="btn-wrapper">
             <b-button class="btn" variant="secondary"  @click="changePage('prev')">Précédente</b-button>
