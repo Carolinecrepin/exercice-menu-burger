@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="postForm-view">
         <form class="post-form" method="post">
             <h3>Formulaire d'ajout de post</h3>
                 <!--verification des erreurs dans le formulaire-->
@@ -82,11 +82,13 @@ export default {
 .post-form {
     display:flex;
     flex-direction: column;
+    align-items: center;
     background-color:#ece2e0 ;
     padding: 1em;
-    margin: 2em;
+    margin: 3em;
     border-radius: 10px;
-    max-width: 60em;
+    width: 60em;
+    height: 28em;
     
 }
 .formPost {
@@ -126,5 +128,10 @@ input {
     flex-direction: column;
     justify-content: center;
     font-size:small;
+}
+.postForm-view{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 </style>
